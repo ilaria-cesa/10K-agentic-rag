@@ -11,7 +11,9 @@ from __future__ import annotations
 import re
 import warnings
 
-from bs4 import BeautifulSoup, XMLParsedAsHTMLWarning
+from bs4 import BeautifulSoup, NavigableString, XMLParsedAsHTMLWarning
+
+from src.ingest.tables import UNIT, parse_table, serialize
 
 # 10-Ks are served as XHTML; parsing them with the HTML parser works fine.
 warnings.filterwarnings("ignore", category=XMLParsedAsHTMLWarning)
@@ -40,10 +42,50 @@ _MDNA_END_RE = re.compile(
 )
 
 
-def html_to_text(html: str) -> str:
+TABLE_START, TABLE_END = "[TABLE]", "[/TABLE]"
+_NOT_A_TITLE = re.compile(r"^(table of contents|\d{1,3}|part [ivx]+)$", re.IGNORECASE)
+
+
+def _caption(table) -> tuple[str | None, str | None]:
+    """(title, unit) from the few text lines just above a table, e.g. "Net sales by category"
+    and "(in millions)". Page furniture such as "Table of Contents" or a page number is skipped."""
+    lines = [s.strip() for s in table.find_all_previous(string=True, limit=12) if s.strip()]
+    unit = next((m.group(0).strip() for line in lines[:4] if (m := UNIT.search(line))), None)
+    title = next(
+        (
+            line
+            for line in lines[:4]
+            if 3 <= len(line) <= 160 and not _NOT_A_TITLE.match(line) and not UNIT.search(line)
+        ),
+        None,
+    )
+    return title, unit
+
+
+def _structure_tables(soup) -> None:
+    """Replace every table that holds numbers by text in which each value carries its row and
+    column (see tables.py). The block is wrapped in markers so the chunker can keep it together."""
+    for tag in soup.find_all("table"):
+        if tag.find("table"):  # a table of tables: the inner ones are handled on their own
+            continue
+        parsed = parse_table(tag)
+        if parsed is None:
+            continue
+        title, unit = _caption(tag)
+        parsed.unit = parsed.unit or unit
+        block = f"\n{TABLE_START}\n{serialize(parsed, title)}\n{TABLE_END}\n"
+        tag.replace_with(NavigableString(block))
+
+
+def html_to_text(html: str, tables: str = "flat") -> str:
+    """Plain text of a filing. `tables`: "flat" (cells joined by spaces) or "structured"."""
+    if tables not in {"flat", "structured"}:
+        raise ValueError("tables must be 'flat' or 'structured'")
     soup = BeautifulSoup(html, "lxml")
     for tag in soup(["script", "style", "ix:header"]):
         tag.decompose()
+    if tables == "structured":
+        _structure_tables(soup)
     # Newlines only at block boundaries, so inline links stay inside their sentence.
     for tag in soup.find_all(_BLOCK_TAGS):
         tag.insert_before("\n")

@@ -27,7 +27,7 @@ _YEAR = re.compile(r"^(19|20)\d\d$")
 _VALUE = re.compile(r"^[(\-–—]?\$?\(?\d[\d,]*(\.\d+)?\)?\s?(%|x|pts|bps)?\)?$|^[—–-]+\s?%?$")
 _PREFIX = {"$", "(", "($", "$(", "US$", "£", "€"}
 _SUFFIX = {"%", ")", "%)", ")%", "pts", "bps", "x"}
-_UNIT = re.compile(r"in\s+(millions|billions|thousands)(?:[^)]{0,40})?", re.IGNORECASE)
+UNIT = re.compile(r"in\s+(millions|billions|thousands)(?:[^)]{0,40})?", re.IGNORECASE)
 _VAGUE_HEADER = re.compile(r"^(%\s*)?(change|variance|chg\.?)$", re.IGNORECASE)
 
 
@@ -115,7 +115,7 @@ def parse_table(table) -> Table | None:
     columns: list[list[str]] = []
     for cells in rows[:first]:
         text = " ".join(cells)
-        match = _UNIT.search(text)
+        match = UNIT.search(text)
         if match and unit is None:
             unit = match.group(0).strip().rstrip(",;")
         if len(cells) == n_cols:

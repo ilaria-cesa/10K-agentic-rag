@@ -229,3 +229,30 @@ def test_clean_section_removes_page_furniture_but_keeps_sentences():
         "We face risks. See Item 1A. Risk Factors on page 8 for details.\n"
         "Economic conditions matter."
     )
+
+
+TABLE_HTML = (
+    "<p>Net sales by category</p><p>(in millions)</p>"
+    "<table><tr><td></td><td>2026</td><td>2025</td></tr>"
+    "<tr><td>iPhone</td><td>$</td><td>254,098</td><td>$</td><td>209,586</td></tr>"
+    "<tr><td>Mac</td><td>$</td><td>30,000</td><td>$</td><td>29,000</td></tr></table>"
+)
+
+
+def test_structured_tables_keep_row_and_column():
+    text = html_to_text(f"<html><body>{TABLE_HTML}</body></html>", tables="structured")
+    assert "[TABLE]" in text and "[/TABLE]" in text
+    assert "iPhone: 2026 = $254,098; 2025 = $209,586" in text
+    assert "Net sales by category" in text and "in millions" in text
+
+
+def test_flat_is_default_and_has_no_markers():
+    text = html_to_text(f"<html><body>{TABLE_HTML}</body></html>")
+    assert "[TABLE]" not in text and "iPhone" in text
+
+
+def test_unknown_tables_mode_rejected():
+    import pytest
+
+    with pytest.raises(ValueError):
+        html_to_text("<p>x</p>", tables="other")
