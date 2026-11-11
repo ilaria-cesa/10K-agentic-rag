@@ -69,7 +69,8 @@ def _structure_tables(soup) -> None:
         if tag.find("table"):  # a table of tables: the inner ones are handled on their own
             continue
         parsed = parse_table(tag)
-        if parsed is None:
+        # a lone number with no label (a page number in a table cell) is not a table
+        if parsed is None or not any(label and values for label, values in parsed.rows):
             continue
         title, unit = _caption(tag)
         parsed.unit = parsed.unit or unit

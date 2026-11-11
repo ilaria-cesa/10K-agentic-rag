@@ -256,3 +256,8 @@ def test_unknown_tables_mode_rejected():
 
     with pytest.raises(ValueError):
         html_to_text("<p>x</p>", tables="other")
+
+
+def test_table_with_only_an_unlabelled_number_is_left_as_plain_text():
+    html = "<html><body><p>Competition</p><table><tr><td>6</td></tr></table></body></html>"
+    assert "[TABLE]" not in html_to_text(html, tables="structured")
