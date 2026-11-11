@@ -1,0 +1,19 @@
+# data and weights: never in git (they live on the Hugging Face Hub)
+data/
+*.faiss
+*.safetensors
+*.gguf
+*.bin
+# secrets
+.env
+*.key
+# python
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
+.ruff_cache/
+.pytest_cache/
+
+# raw model outputs of the runs (the summaries in results/ are tracked)
+runs/

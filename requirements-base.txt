@@ -1,0 +1,10 @@
+# Core runtime dependencies (no GPU libraries): ingestion, chunking, retrieval helpers.
+# Versions are pinned (==) after the first successful run on Colab.
+requests
+beautifulsoup4
+lxml
+python-dotenv
+numpy
+faiss-cpu==1.15.1
+huggingface_hub==1.33.0
+langgraph==1.2.20
