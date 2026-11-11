@@ -93,3 +93,31 @@ def test_page_footers_are_dropped_but_sentences_mentioning_the_form_are_kept():
     chunks = chunk_text(text, ChunkConfig())
     assert len(chunks) == 1
     assert chunks[0].startswith("See our Annual Report")
+
+
+TABLE = (
+    "[TABLE]\nTable: Net sales (in millions):\n"
+    + "\n".join(f"Product{i}: 2026 = {i * 10}; 2025 = {i * 9}" for i in range(12))
+    + "\n[/TABLE]"
+)
+
+
+def test_text_without_tables_is_unchanged():
+    assert chunk_text(lines(30), CFG) == chunk_text(lines(30) + "\n", CFG)
+    assert all("[TABLE]" not in c for c in chunk_text(lines(30), CFG))
+
+
+def test_table_is_separate_chunk_without_markers():
+    chunks = chunk_text("Intro paragraph about sales.\n" + TABLE + "\nAfter the table.", CFG)
+    tables = [c for c in chunks if c.startswith("Table:")]
+    assert tables and all("[TABLE]" not in c and "[/TABLE]" not in c for c in chunks)
+    assert not any("Intro" in c and "Product" in c for c in chunks)
+
+
+def test_long_table_is_cut_between_rows_and_repeats_title():
+    chunks = [c for c in chunk_text(TABLE, CFG)]
+    assert len(chunks) > 1
+    assert all(c.startswith("Table: Net sales (in millions):") for c in chunks)
+    assert all(len(c) <= CFG.max_chars for c in chunks)
+    rows = [line for c in chunks for line in c.splitlines()[1:]]
+    assert rows == [f"Product{i}: 2026 = {i * 10}; 2025 = {i * 9}" for i in range(12)]

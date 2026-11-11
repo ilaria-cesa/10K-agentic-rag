@@ -11,7 +11,10 @@ Design choices:
   * consecutive chunks share a small tail of whole lines, so an answer that straddles a
     boundary still appears fully in at least one chunk;
   * every chunk gets a context header (company, period, section) that is prepended only for
-    embedding (`embed_text`), so the stored `text` stays clean for citation display.
+    embedding (`embed_text`), so the stored `text` stays clean for citation display;
+  * tables written by `html_to_text(tables="structured")` (between [TABLE] markers) are never
+    mixed with prose: each table is its own chunk, or several chunks cut between rows, each
+    starting with the table title line. Text without markers is chunked exactly as before.
 """
 
 from __future__ import annotations
@@ -24,6 +27,7 @@ SECTION_LABELS = {
     "risk_factors": "Item 1A Risk Factors",
     "mdna": "Item 7 Management's Discussion and Analysis",
 }
+_TABLE_RE = re.compile(r"\[TABLE\]\n(.*?)\n\[/TABLE\]", re.DOTALL)
 _SENTENCE_RE = re.compile(r"(?<=[.!?])\s+")
 # Running page footers such as "Apple Inc. | 2025 Form 10-K | 7" carry no information.
 _FOOTER_RE = re.compile(r"\b(19|20)\d\d\s+form\s+10-k\b|\bform\s+10-k\s*\|", re.IGNORECASE)
@@ -75,7 +79,38 @@ def _tail(units: list[str], limit: int) -> list[str]:
     return tail
 
 
+def chunk_table(block: str, cfg: ChunkConfig = DEFAULT_CONFIG) -> list[str]:
+    """Cut one serialized table between rows; every piece repeats the title line."""
+    lines = [line.strip() for line in block.splitlines() if line.strip()]
+    title = lines[0] if lines[0].startswith("Table") else None
+    body = lines[1:] if title else lines
+    pieces: list[list[str]] = []
+    size = 0
+    for line in body:
+        for part in split_long_line(line, cfg.max_chars - len(title or "") - 1):
+            if not pieces or size + 1 + len(part) > cfg.max_chars:
+                pieces.append([])
+                size = len(title or "")
+            pieces[-1].append(part)
+            size += 1 + len(part)
+    return [
+        "\n".join(([title] if title else []) + piece) for piece in pieces or [[]] if piece or title
+    ]
+
+
 def chunk_text(text: str, cfg: ChunkConfig = DEFAULT_CONFIG) -> list[str]:
+    """Prose chunks and table chunks, in document order."""
+    if "[TABLE]" not in text:
+        return _chunk_prose(text, cfg)
+    chunks, last = [], 0
+    for match in _TABLE_RE.finditer(text):
+        chunks.extend(_chunk_prose(text[last : match.start()], cfg))
+        chunks.extend(chunk_table(match.group(1), cfg))
+        last = match.end()
+    return chunks + _chunk_prose(text[last:], cfg)
+
+
+def _chunk_prose(text: str, cfg: ChunkConfig) -> list[str]:
     units: list[str] = []
     for line in text.splitlines():
         line = line.strip()
