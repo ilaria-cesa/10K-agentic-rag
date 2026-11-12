@@ -41,3 +41,27 @@ def test_questions_are_remapped_and_weak_ones_listed():
     assert weak == []
     _, weak = remap_questions(questions, [OLD], [NEW[0]])
     assert weak == ["Q1"]
+
+
+def test_focus_on_answer_finds_the_chunk_that_holds_the_number():
+    old = chunk(
+        "old_2",
+        "Capital Return Program\nDuring 2026 the Company repurchased $85.8 billion of stock.\n"
+        "Leases are described in the note.",
+    )
+    new = [
+        chunk("n_leases", "Leases\nLeases are described in the note. Other obligations follow."),
+        chunk(
+            "n_return",
+            "Dividends were raised. During 2026 the Company repurchased $85.8 billion of stock.",
+        ),
+    ]
+    q = [{"id": "Q", "evidence_chunk_ids": ["old_2"], "answer": "$85.8 billion"}]
+    mapped, _ = remap_questions(q, [old], new, min_cover=0.7, focus_on_answer=True)
+    assert mapped[0]["evidence_chunk_ids"] == ["n_return"]
+
+
+def test_focus_falls_back_to_whole_chunk_when_answer_has_no_number():
+    q = [{"id": "Q", "evidence_chunk_ids": ["old_1"], "answer": "Apple."}]
+    mapped, _ = remap_questions(q, [OLD], NEW, focus_on_answer=True)
+    assert mapped[0]["evidence_chunk_ids"] == ["new_table"]
