@@ -141,18 +141,54 @@ def parse_table(table) -> Table | None:
     return Table(_name_vague_headers(header), out_rows, context, unit)
 
 
-def serialize(table: Table, title: str | None = None) -> str:
-    """One line per row; every value is written as "column = value"."""
+_DELTA_HEADER = re.compile(r"^(%\s*)?(change|variance|chg\.?)\b", re.IGNORECASE)
+
+
+def _base_columns(header: list[str]) -> list[str]:
+    """The header without its "Change ..." columns: the value columns themselves."""
+    return [h for h in header if not _DELTA_HEADER.match(h)]
+
+
+def serialize(table: Table, title: str | None = None, *, align_to_base: bool = False) -> str:
+    """One line per row; every value is written as "column = value".
+
+    With `align_to_base`, a row that has fewer values than the header (typically "Percentage of
+    net sales: 8% | 8% | 8%" under a header that also has "Change" columns) is matched to the
+    value columns when their number is exactly the number of values."""
     head = f"Table: {title}" if title else "Table"
     if table.unit:
         head += f" ({table.unit})"
     lines = [head + ":", *table.context]
+    base = _base_columns(table.header) if align_to_base else []
     for label, values in table.rows:
+        columns = None
+        if table.header and len(values) == len(table.header):
+            columns = table.header
+        elif base and values and len(values) == len(base):
+            columns = base
         if not values:
             lines.append(label)
-        elif table.header and len(values) == len(table.header):
-            pairs = "; ".join(f"{h} = {v}" for h, v in zip(table.header, values, strict=True))
+        elif columns:
+            pairs = "; ".join(f"{h} = {v}" for h, v in zip(columns, values, strict=True))
             lines.append(f"{label or '(no label)'}: {pairs}")
         else:  # not aligned with the header: keep the values, do not guess the columns
             lines.append(f"{label or '(no label)'}: " + " | ".join(values))
     return "\n".join(lines)
+
+
+def mostly_percent(table: Table, share: float = 0.8) -> bool:
+    """True when most values are percentages (a money unit such as "in millions" is then wrong)."""
+    values = [v for _, vals in table.rows for v in vals]
+    return bool(values) and sum("%" in v for v in values) / len(values) >= share
+
+
+def inherit_header(table: Table, previous: Table) -> bool:
+    """Give a table without header the header of the table right above it, when every data row has
+    exactly as many values as that header has columns. Returns True when it was applied."""
+    if table.header or not previous.header:
+        return False
+    counts = {len(values) for _, values in table.rows if values}
+    if counts != {len(previous.header)}:
+        return False
+    table.header = list(previous.header)
+    return True

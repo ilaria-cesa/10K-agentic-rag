@@ -106,3 +106,32 @@ def test_group_titles_are_repeated_over_the_columns_they_cover():
         "Loans: Credit exposure 2025 = $100; Credit exposure 2024 = $90; "
         "Nonperforming 2025 = 5; Nonperforming 2024 = 4"
     ) in text
+
+
+def test_percentage_rows_align_to_the_value_columns():
+    from src.ingest.tables import Table, serialize
+
+    table = Table(
+        header=["2025", "Change 2025 vs 2024", "2024", "Change 2024 vs 2023", "2023"],
+        rows=[
+            ("R&D", ["$34,550", "10%", "$31,370", "5%", "$29,915"]),
+            ("Percentage of total net sales", ["8%", "8%", "8%"]),
+        ],
+    )
+    plain = serialize(table, "Operating Expenses")
+    assert "Percentage of total net sales: 8% | 8% | 8%" in plain
+    aligned = serialize(table, "Operating Expenses", align_to_base=True)
+    assert "Percentage of total net sales: 2025 = 8%; 2024 = 8%; 2023 = 8%" in aligned
+
+
+def test_mostly_percent_and_orphan_header():
+    from src.ingest.tables import Table, inherit_header, mostly_percent
+
+    above = Table(
+        header=["2026", "2025", "2024"], rows=[("Products", ["$1", "$2", "$3"])], unit="in millions"
+    )
+    orphan = Table(header=[], rows=[("Services", ["76.2%", "75.4%", "73.9%"])])
+    assert mostly_percent(orphan) and not mostly_percent(above)
+    assert inherit_header(orphan, above) and orphan.header == ["2026", "2025", "2024"]
+    other = Table(header=[], rows=[("Services", ["1", "2"])])  # different number of columns
+    assert not inherit_header(other, above) and other.header == []
