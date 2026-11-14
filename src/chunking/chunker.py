@@ -39,6 +39,7 @@ class ChunkConfig:
     max_chars: int = 1600
     overlap_chars: int = 200
     min_chars: int = 300  # a shorter trailing chunk is merged into the previous one
+    small_table_chars: int = 0  # >0: a table shorter than this joins the chunk before it
 
     def __post_init__(self):
         if self.overlap_chars >= self.max_chars // 2:
@@ -104,8 +105,15 @@ def chunk_text(text: str, cfg: ChunkConfig = DEFAULT_CONFIG) -> list[str]:
         return _chunk_prose(text, cfg)
     chunks, last = [], 0
     for match in _TABLE_RE.finditer(text):
-        chunks.extend(_chunk_prose(text[last : match.start()], cfg))
-        chunks.extend(chunk_table(match.group(1), cfg))
+        before = _chunk_prose(text[last : match.start()], cfg)
+        chunks.extend(before)
+        pieces = chunk_table(match.group(1), cfg)
+        small = len(pieces) == 1 and len(pieces[0]) < cfg.small_table_chars
+        # a small table next to its introducing paragraph is kept in the same chunk
+        if small and chunks and before and len(chunks[-1]) + 1 + len(pieces[0]) <= cfg.max_chars:
+            chunks[-1] += "\n" + pieces[0]
+        else:
+            chunks.extend(pieces)
         last = match.end()
     return chunks + _chunk_prose(text[last:], cfg)
 
