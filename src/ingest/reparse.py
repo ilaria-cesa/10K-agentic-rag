@@ -19,9 +19,14 @@ def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--out", type=Path, default=Path("data"))
     parser.add_argument("--tickers", nargs="+", help="only these tickers (default: all)")
-    parser.add_argument("--tables", choices=["flat", "structured"], default="flat")
+    parser.add_argument("--tables", choices=["flat", "structured", "structured2"], default="flat")
     args = parser.parse_args(argv)
-    out_dir = args.out / ("parsed_tables" if args.tables == "structured" else "parsed")
+    out_dir = (
+        args.out
+        / {"flat": "parsed", "structured": "parsed_tables", "structured2": "parsed_tables_v2"}[
+            args.tables
+        ]
+    )
     out_dir.mkdir(parents=True, exist_ok=True)
     wanted = {t.upper() for t in args.tickers} if args.tickers else None
 
