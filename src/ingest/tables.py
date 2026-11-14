@@ -23,6 +23,10 @@ import re
 from collections import Counter
 from dataclasses import dataclass, field
 
+# Written into the dataset (tables/meta.json) and into every run row, so that data or answers produced
+# by an older table parser are never mixed with the current one.
+PARSER_VERSION = 2
+
 _YEAR = re.compile(r"^(19|20)\d\d$")
 _VALUE = re.compile(r"^[(\-–—]?\$?\(?\d[\d,]*(\.\d+)?\)?\s?(%|x|pts|bps)?\)?$|^[—–-]+\s?%?$")
 _PREFIX = {"$", "(", "($", "$(", "US$", "£", "€"}
