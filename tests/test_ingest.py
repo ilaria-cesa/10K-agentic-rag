@@ -261,3 +261,17 @@ def test_unknown_tables_mode_rejected():
 def test_table_with_only_an_unlabelled_number_is_left_as_plain_text():
     html = "<html><body><p>Competition</p><table><tr><td>6</td></tr></table></body></html>"
     assert "[TABLE]" not in html_to_text(html, tables="structured")
+
+
+def test_structured_tables_fix_split_tables_and_units():
+    html = (
+        "<p>Gross Margin</p>"
+        "<table><tr><td></td><td>2026</td><td>2025</td></tr>"
+        "<tr><td>Products</td><td>$</td><td>100</td><td>$</td><td>90</td></tr></table>"
+        "<table><tr><td>Gross margin percentage</td><td>39.3</td><td>%</td><td>36.8</td><td>%</td></tr></table>"
+        "<p>The following table summarizes something about the company in a long sentence.</p>"
+        "<table><tr><td>Services</td><td>1</td><td>2</td></tr></table>"
+    )
+    text = html_to_text(html, tables="structured")
+    assert "Gross margin percentage: 2026 = 39.3%; 2025 = 36.8%" in text
+    assert text.count("(in millions)") == 0

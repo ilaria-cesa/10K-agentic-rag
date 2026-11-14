@@ -121,3 +121,12 @@ def test_long_table_is_cut_between_rows_and_repeats_title():
     assert all(len(c) <= CFG.max_chars for c in chunks)
     rows = [line for c in chunks for line in c.splitlines()[1:]]
     assert rows == [f"Product{i}: 2026 = {i * 10}; 2025 = {i * 9}" for i in range(12)]
+
+
+def test_small_table_joins_the_paragraph_before_it():
+    text = (
+        "Gross margin was 48.8%.\n[TABLE]\nTable: Gross Margin:\nProducts: 2026 = 39.3%\n[/TABLE]\n"
+    )
+    assert len(chunk_text(text, ChunkConfig(small_table_chars=0))) == 2
+    merged = chunk_text(text, ChunkConfig())
+    assert len(merged) == 1 and merged[0].startswith("Gross margin") and "Products" in merged[0]

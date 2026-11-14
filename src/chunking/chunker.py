@@ -39,7 +39,7 @@ class ChunkConfig:
     max_chars: int = 1600
     overlap_chars: int = 200
     min_chars: int = 300  # a shorter trailing chunk is merged into the previous one
-    small_table_chars: int = 0  # >0: a table shorter than this joins the chunk before it
+    small_table_chars: int = 400  # a table shorter than this joins the paragraph before it
 
     def __post_init__(self):
         if self.overlap_chars >= self.max_chars // 2:

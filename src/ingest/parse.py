@@ -87,11 +87,11 @@ def _adjacent(tag, previous_block) -> bool:
     return False
 
 
-def _structure_tables(soup, v2: bool = False) -> None:
+def _structure_tables(soup) -> None:
     """Replace every table that holds numbers by text in which each value carries its row and
     column (see tables.py). The block is wrapped in markers so the chunker can keep it together.
 
-    With `v2`: the table's own first line ("Table 8 Average Balances ...") is the title when
+    Details: the table's own first line ("Table 8 Average Balances ...") is the title when
     present; page headers and sentences are not titles; a percentage table gets no money unit;
     a table split in two (header only in the first part) takes the header of the part above; rows
     with only the value columns are aligned to them."""
@@ -104,35 +104,33 @@ def _structure_tables(soup, v2: bool = False) -> None:
         if parsed is None or not any(label and values for label, values in parsed.rows):
             continue
         title, unit = _caption(tag)
-        if v2:
-            own = next((c for c in parsed.context if _OWN_TITLE.match(c)), None)
-            if own:
-                parsed.context.remove(own)
-                title = own
-            else:
-                title = _good_title(title)
-            if previous and _adjacent(tag, previous[1]):
-                inherit_header(parsed, previous[0])
+        own = next((c for c in parsed.context if _OWN_TITLE.match(c)), None)
+        if own:
+            parsed.context.remove(own)
+            title = own
+        else:
+            title = _good_title(title)
+        if previous and _adjacent(tag, previous[1]):
+            inherit_header(parsed, previous[0])
         parsed.unit = parsed.unit or unit
-        if v2 and mostly_percent(parsed):
+        if mostly_percent(parsed):
             parsed.unit = None
         block = NavigableString(
-            f"\n{TABLE_START}\n{serialize(parsed, title, align_to_base=v2)}\n{TABLE_END}\n"
+            f"\n{TABLE_START}\n{serialize(parsed, title, align_to_base=True)}\n{TABLE_END}\n"
         )
         tag.replace_with(block)
         previous = (parsed, block)
 
 
 def html_to_text(html: str, tables: str = "flat") -> str:
-    """Plain text of a filing. `tables`: "flat" (cells joined by spaces), "structured", or
-    "structured2" (structured with title, unit and alignment fixes)."""
-    if tables not in {"flat", "structured", "structured2"}:
-        raise ValueError("tables must be 'flat', 'structured' or 'structured2'")
+    """Plain text of a filing. `tables`: "flat" (cells joined by spaces) or "structured"."""
+    if tables not in {"flat", "structured"}:
+        raise ValueError("tables must be 'flat' or 'structured'")
     soup = BeautifulSoup(html, "lxml")
     for tag in soup(["script", "style", "ix:header"]):
         tag.decompose()
-    if tables != "flat":
-        _structure_tables(soup, v2=tables == "structured2")
+    if tables == "structured":
+        _structure_tables(soup)
     # Newlines only at block boundaries, so inline links stay inside their sentence.
     for tag in soup.find_all(_BLOCK_TAGS):
         tag.insert_before("\n")
