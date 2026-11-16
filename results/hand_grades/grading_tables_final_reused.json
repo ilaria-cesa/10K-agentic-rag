@@ -1,0 +1,654 @@
+{
+ "rag_base|Q082": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag_base|Q086": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag_base|Q089": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag_base|Q092": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag_base|Q096": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag_base|Q097": {
+  "grade": "correct",
+  "notes": "Golden also adds that seven products have 2B+ users, which the question does not ask for. Acceptable."
+ },
+ "rag_base|Q103": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "rag_base|Q110": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag_base|Q111": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag_base|Q112": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "rag_base|Q114": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "rag_base|Q117": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "rag_base|Q120": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "rag_base|Q126": {
+  "grade": "partial",
+  "notes": null
+ },
+ "rag_base|Q129": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "rag_base|Q133": {
+  "grade": "partial",
+  "notes": null
+ },
+ "rag_base|Q136": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "rag_base|Q140": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag_base|Q141": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag_base|Q142": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag_base|Q143": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag_base|Q144": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag_base|Q145": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag_base|Q146": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag_base|Q147": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag_base|Q148": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "rag_base|Q149": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag_base|Q150": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag_base|Q152": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "rag_base|Q153": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "rag_base|Q156": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "rag_base|Q157": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "rag_base|Q158": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "rag_base|Q160": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "rag_base|Q162": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "rag_base|Q163": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "rag_base|Q164": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "rag_base|Q169": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "rag_base|Q170": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag_base|Q171": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag_base|Q172": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag_base|Q173": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag_base|Q174": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "rag_base|Q175": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "rag5|Q086": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag5|Q088": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag5|Q089": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag5|Q091": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag5|Q092": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag5|Q096": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag5|Q097": {
+  "grade": "correct",
+  "notes": "Golden also adds that seven products have 2B+ users, which the question does not ask for. Acceptable."
+ },
+ "rag5|Q103": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "rag5|Q110": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "rag5|Q111": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "rag5|Q114": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "rag5|Q120": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag5|Q122": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "rag5|Q126": {
+  "grade": "partial",
+  "notes": null
+ },
+ "rag5|Q128": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag5|Q129": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "rag5|Q133": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag5|Q134": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag5|Q137": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag5|Q138": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag5|Q140": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag5|Q141": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag5|Q142": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag5|Q143": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag5|Q144": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag5|Q145": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag5|Q146": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag5|Q147": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag5|Q149": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag5|Q150": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag5|Q151": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "rag5|Q152": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag5|Q153": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "rag5|Q154": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "rag5|Q157": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "rag5|Q158": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "rag5|Q160": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "rag5|Q161": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag5|Q162": {
+  "grade": "correct",
+  "notes": "Golden uses Meta 26.25B / total 71.65B; the answer uses 26.26B / 71.66B (the filing figure, rounding). Acceptable."
+ },
+ "rag5|Q164": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag5|Q170": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag5|Q171": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag5|Q172": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag5|Q173": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag5|Q174": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "rag8|Q082": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag8|Q086": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag8|Q089": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag8|Q091": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag8|Q096": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag8|Q097": {
+  "grade": "correct",
+  "notes": "Golden also adds that seven products have 2B+ users, which the question does not ask for. Acceptable."
+ },
+ "rag8|Q103": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "rag8|Q110": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag8|Q111": {
+  "grade": "partial",
+  "notes": null
+ },
+ "rag8|Q120": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag8|Q126": {
+  "grade": "partial",
+  "notes": null
+ },
+ "rag8|Q128": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag8|Q129": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "rag8|Q133": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag8|Q140": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag8|Q141": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag8|Q142": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag8|Q143": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag8|Q144": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag8|Q145": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag8|Q146": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag8|Q147": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag8|Q149": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag8|Q150": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag8|Q151": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "rag8|Q152": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag8|Q154": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "rag8|Q157": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "rag8|Q158": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "rag8|Q161": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag8|Q162": {
+  "grade": "correct",
+  "notes": "Golden uses Meta 26.25B / total 71.65B; the answer uses 26.26B / 71.66B (the filing figure, rounding). Acceptable."
+ },
+ "rag8|Q170": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag8|Q171": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag8|Q172": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag8|Q173": {
+  "grade": "correct",
+  "notes": null
+ },
+ "rag8|Q175": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "agent_v3|Q082": {
+  "grade": "correct",
+  "notes": null
+ },
+ "agent_v3|Q086": {
+  "grade": "correct",
+  "notes": null
+ },
+ "agent_v3|Q088": {
+  "grade": "correct",
+  "notes": null
+ },
+ "agent_v3|Q089": {
+  "grade": "correct",
+  "notes": null
+ },
+ "agent_v3|Q091": {
+  "grade": "correct",
+  "notes": null
+ },
+ "agent_v3|Q092": {
+  "grade": "correct",
+  "notes": null
+ },
+ "agent_v3|Q093": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "agent_v3|Q096": {
+  "grade": "correct",
+  "notes": null
+ },
+ "agent_v3|Q097": {
+  "grade": "correct",
+  "notes": "Golden also adds that seven products have 2B+ users, which the question does not ask for. Acceptable."
+ },
+ "agent_v3|Q103": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "agent_v3|Q110": {
+  "grade": "correct",
+  "notes": null
+ },
+ "agent_v3|Q111": {
+  "grade": "partial",
+  "notes": "Golden says 4.8B (consolidated 4,750M); the answer gives 4.7B (continuing operations, 4,747M). Marked partial for the small number mismatch; arguably acceptable."
+ },
+ "agent_v3|Q120": {
+  "grade": "correct",
+  "notes": null
+ },
+ "agent_v3|Q122": {
+  "grade": "partial",
+  "notes": null
+ },
+ "agent_v3|Q126": {
+  "grade": "partial",
+  "notes": null
+ },
+ "agent_v3|Q133": {
+  "grade": "correct",
+  "notes": null
+ },
+ "agent_v3|Q140": {
+  "grade": "correct",
+  "notes": null
+ },
+ "agent_v3|Q141": {
+  "grade": "correct",
+  "notes": null
+ },
+ "agent_v3|Q142": {
+  "grade": "correct",
+  "notes": null
+ },
+ "agent_v3|Q143": {
+  "grade": "correct",
+  "notes": null
+ },
+ "agent_v3|Q144": {
+  "grade": "correct",
+  "notes": null
+ },
+ "agent_v3|Q145": {
+  "grade": "correct",
+  "notes": null
+ },
+ "agent_v3|Q146": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "agent_v3|Q147": {
+  "grade": "correct",
+  "notes": null
+ },
+ "agent_v3|Q149": {
+  "grade": "correct",
+  "notes": null
+ },
+ "agent_v3|Q150": {
+  "grade": "correct",
+  "notes": null
+ },
+ "agent_v3|Q152": {
+  "grade": "correct",
+  "notes": null
+ },
+ "agent_v3|Q154": {
+  "grade": "correct",
+  "notes": null
+ },
+ "agent_v3|Q157": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "agent_v3|Q158": {
+  "grade": "wrong",
+  "notes": null
+ },
+ "agent_v3|Q162": {
+  "grade": "correct",
+  "notes": "Golden uses Meta 26.25B / total 71.65B; the answer uses 26.26B / 71.66B (the filing figure, rounding). Acceptable."
+ },
+ "agent_v3|Q163": {
+  "grade": "correct",
+  "notes": null
+ },
+ "agent_v3|Q164": {
+  "grade": "correct",
+  "notes": null
+ },
+ "agent_v3|Q170": {
+  "grade": "correct",
+  "notes": null
+ },
+ "agent_v3|Q171": {
+  "grade": "correct",
+  "notes": null
+ },
+ "agent_v3|Q172": {
+  "grade": "correct",
+  "notes": null
+ },
+ "agent_v3|Q173": {
+  "grade": "correct",
+  "notes": null
+ },
+ "agent_v3|Q175": {
+  "grade": "wrong",
+  "notes": null
+ }
+}

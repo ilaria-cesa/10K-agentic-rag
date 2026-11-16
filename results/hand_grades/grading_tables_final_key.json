@@ -1,0 +1,1699 @@
+{
+ "1": {
+  "id": "Q156",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "2": {
+  "id": "Q139",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   }
+  ]
+ },
+ "3": {
+  "id": "Q130",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "4": {
+  "id": "Q165",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   }
+  ]
+ },
+ "5": {
+  "id": "Q098",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   },
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   },
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "6": {
+  "id": "Q113",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   },
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   },
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "7": {
+  "id": "Q137",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   }
+  ]
+ },
+ "8": {
+  "id": "Q109",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "9": {
+  "id": "Q161",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   }
+  ]
+ },
+ "10": {
+  "id": "Q090",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   },
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "11": {
+  "id": "Q161",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "12": {
+  "id": "Q094",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   }
+  ]
+ },
+ "13": {
+  "id": "Q168",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "14": {
+  "id": "Q106",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "15": {
+  "id": "Q095",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   },
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   },
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   },
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "16": {
+  "id": "Q108",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "17": {
+  "id": "Q093",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   },
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   }
+  ]
+ },
+ "18": {
+  "id": "Q174",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   },
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "19": {
+  "id": "Q107",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "20": {
+  "id": "Q119",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   }
+  ]
+ },
+ "21": {
+  "id": "Q165",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "22": {
+  "id": "Q132",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   }
+  ]
+ },
+ "23": {
+  "id": "Q118",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   }
+  ]
+ },
+ "24": {
+  "id": "Q166",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   }
+  ]
+ },
+ "25": {
+  "id": "Q134",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "26": {
+  "id": "Q135",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "27": {
+  "id": "Q148",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "28": {
+  "id": "Q088",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "29": {
+  "id": "Q163",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   }
+  ]
+ },
+ "30": {
+  "id": "Q151",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   }
+  ]
+ },
+ "31": {
+  "id": "Q118",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "32": {
+  "id": "Q155",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   }
+  ]
+ },
+ "33": {
+  "id": "Q137",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "34": {
+  "id": "Q116",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "35": {
+  "id": "Q106",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   }
+  ]
+ },
+ "36": {
+  "id": "Q167",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   },
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "37": {
+  "id": "Q169",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "38": {
+  "id": "Q122",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "39": {
+  "id": "Q160",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "40": {
+  "id": "Q167",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   }
+  ]
+ },
+ "41": {
+  "id": "Q123",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "42": {
+  "id": "Q139",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   },
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   },
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "43": {
+  "id": "Q106",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "44": {
+  "id": "Q136",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "45": {
+  "id": "Q099",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   }
+  ]
+ },
+ "46": {
+  "id": "Q132",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "47": {
+  "id": "Q107",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "48": {
+  "id": "Q151",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "49": {
+  "id": "Q154",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   }
+  ]
+ },
+ "50": {
+  "id": "Q132",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   }
+  ]
+ },
+ "51": {
+  "id": "Q122",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   }
+  ]
+ },
+ "52": {
+  "id": "Q115",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "53": {
+  "id": "Q160",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "54": {
+  "id": "Q087",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   },
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "55": {
+  "id": "Q168",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   }
+  ]
+ },
+ "56": {
+  "id": "Q094",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   },
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "57": {
+  "id": "Q092",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "58": {
+  "id": "Q127",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   }
+  ]
+ },
+ "59": {
+  "id": "Q159",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   }
+  ]
+ },
+ "60": {
+  "id": "Q104",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   },
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "61": {
+  "id": "Q100",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   }
+  ]
+ },
+ "62": {
+  "id": "Q153",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "63": {
+  "id": "Q116",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   }
+  ]
+ },
+ "64": {
+  "id": "Q123",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "65": {
+  "id": "Q159",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   }
+  ]
+ },
+ "66": {
+  "id": "Q108",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "67": {
+  "id": "Q088",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   }
+  ]
+ },
+ "68": {
+  "id": "Q084",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   },
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   },
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   },
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "69": {
+  "id": "Q131",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   },
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   },
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   },
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "70": {
+  "id": "Q135",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   }
+  ]
+ },
+ "71": {
+  "id": "Q128",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "72": {
+  "id": "Q098",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   }
+  ]
+ },
+ "73": {
+  "id": "Q136",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   }
+  ]
+ },
+ "74": {
+  "id": "Q167",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   }
+  ]
+ },
+ "75": {
+  "id": "Q155",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "76": {
+  "id": "Q138",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "77": {
+  "id": "Q138",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   }
+  ]
+ },
+ "78": {
+  "id": "Q159",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "79": {
+  "id": "Q124",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   }
+  ]
+ },
+ "80": {
+  "id": "Q128",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   }
+  ]
+ },
+ "81": {
+  "id": "Q121",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   },
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   },
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "82": {
+  "id": "Q169",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   }
+  ]
+ },
+ "83": {
+  "id": "Q102",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   }
+  ]
+ },
+ "84": {
+  "id": "Q118",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "85": {
+  "id": "Q104",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   }
+  ]
+ },
+ "86": {
+  "id": "Q124",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   }
+  ]
+ },
+ "87": {
+  "id": "Q114",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "88": {
+  "id": "Q107",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   }
+  ]
+ },
+ "89": {
+  "id": "Q106",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   }
+  ]
+ },
+ "90": {
+  "id": "Q127",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "91": {
+  "id": "Q169",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "92": {
+  "id": "Q113",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "93": {
+  "id": "Q101",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   },
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   },
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   },
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "94": {
+  "id": "Q166",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   },
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "95": {
+  "id": "Q155",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "96": {
+  "id": "Q085",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "97": {
+  "id": "Q166",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "98": {
+  "id": "Q105",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   },
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   },
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   },
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "99": {
+  "id": "Q137",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "100": {
+  "id": "Q090",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "101": {
+  "id": "Q087",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   }
+  ]
+ },
+ "102": {
+  "id": "Q117",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   },
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "103": {
+  "id": "Q116",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   }
+  ]
+ },
+ "104": {
+  "id": "Q159",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "105": {
+  "id": "Q125",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   }
+  ]
+ },
+ "106": {
+  "id": "Q117",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "107": {
+  "id": "Q130",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   }
+  ]
+ },
+ "108": {
+  "id": "Q118",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   }
+  ]
+ },
+ "109": {
+  "id": "Q082",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   }
+  ]
+ },
+ "110": {
+  "id": "Q108",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   }
+  ]
+ },
+ "111": {
+  "id": "Q135",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   }
+  ]
+ },
+ "112": {
+  "id": "Q124",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   },
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "113": {
+  "id": "Q112",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "114": {
+  "id": "Q112",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "115": {
+  "id": "Q115",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "116": {
+  "id": "Q163",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "117": {
+  "id": "Q102",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   },
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "118": {
+  "id": "Q125",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "119": {
+  "id": "Q109",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   }
+  ]
+ },
+ "120": {
+  "id": "Q123",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   }
+  ]
+ },
+ "121": {
+  "id": "Q102",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "122": {
+  "id": "Q132",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "123": {
+  "id": "Q085",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   }
+  ]
+ },
+ "124": {
+  "id": "Q099",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   }
+  ]
+ },
+ "125": {
+  "id": "Q094",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   }
+  ]
+ },
+ "126": {
+  "id": "Q104",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   }
+  ]
+ },
+ "127": {
+  "id": "Q165",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   }
+  ]
+ },
+ "128": {
+  "id": "Q093",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "129": {
+  "id": "Q091",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   }
+  ]
+ },
+ "130": {
+  "id": "Q148",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   },
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "131": {
+  "id": "Q134",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   }
+  ]
+ },
+ "132": {
+  "id": "Q136",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "133": {
+  "id": "Q129",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "134": {
+  "id": "Q130",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   }
+  ]
+ },
+ "135": {
+  "id": "Q115",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   },
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   }
+  ]
+ },
+ "136": {
+  "id": "Q168",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   }
+  ]
+ },
+ "137": {
+  "id": "Q108",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   }
+  ]
+ },
+ "138": {
+  "id": "Q165",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "139": {
+  "id": "Q099",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   },
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "140": {
+  "id": "Q087",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "141": {
+  "id": "Q175",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   }
+  ]
+ },
+ "142": {
+  "id": "Q112",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   }
+  ]
+ },
+ "143": {
+  "id": "Q109",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "144": {
+  "id": "Q090",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   }
+  ]
+ },
+ "145": {
+  "id": "Q155",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   }
+  ]
+ },
+ "146": {
+  "id": "Q138",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "147": {
+  "id": "Q085",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   }
+  ]
+ },
+ "148": {
+  "id": "Q134",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "149": {
+  "id": "Q119",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   }
+  ]
+ },
+ "150": {
+  "id": "Q127",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   }
+  ]
+ },
+ "151": {
+  "id": "Q123",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   }
+  ]
+ },
+ "152": {
+  "id": "Q109",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   }
+  ]
+ },
+ "153": {
+  "id": "Q083",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   },
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   },
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   },
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "154": {
+  "id": "Q107",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   }
+  ]
+ },
+ "155": {
+  "id": "Q127",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "156": {
+  "id": "Q130",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "157": {
+  "id": "Q164",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "158": {
+  "id": "Q114",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "159": {
+  "id": "Q125",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "160": {
+  "id": "Q119",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   },
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "161": {
+  "id": "Q116",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "162": {
+  "id": "Q153",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "163": {
+  "id": "Q135",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "164": {
+  "id": "Q100",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   },
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   },
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "165": {
+  "id": "Q121",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   }
+  ]
+ },
+ "166": {
+  "id": "Q085",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "agent_v3"
+   }
+  ]
+ },
+ "167": {
+  "id": "Q168",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "168": {
+  "id": "Q156",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag5"
+   },
+   {
+    "variant": "tables_final",
+    "system": "rag8"
+   }
+  ]
+ },
+ "169": {
+  "id": "Q125",
+  "runs": [
+   {
+    "variant": "tables_final",
+    "system": "rag_base"
+   }
+  ]
+ }
+}

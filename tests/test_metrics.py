@@ -83,3 +83,12 @@ def test_summarise_skips_text_and_list_columns():
     s = summarise(rows)["all"]
     assert s["ok"] == 0.5 and s["seconds"] == 3.0
     assert "answer" not in s and "cited_ids" not in s
+
+
+def test_grades_report_statistics():
+    from src.eval.grades_report import sign_test, wilson
+
+    low, high = wilson(50, 100)
+    assert 0.40 < low < 0.41 and 0.59 < high < 0.60
+    assert sign_test(0, 0) == 1.0 and sign_test(5, 5) == 1.0
+    assert abs(sign_test(10, 1) - 0.0117) < 0.001
