@@ -103,6 +103,14 @@ def _candidates(
     return lists, scope
 
 
+def candidate_pool(
+    corpus: Corpus, question: str, query_vector: np.ndarray, config: RetrievalConfig
+) -> list[int]:
+    """The chunk indices a reranker would see (dense and keyword candidates, no duplicates)."""
+    lists, _ = _candidates(corpus, question, query_vector, config)
+    return list(dict.fromkeys(i for items in lists for i, _ in items))
+
+
 def retrieve(
     corpus: Corpus,
     question: str,
@@ -115,7 +123,7 @@ def retrieve(
     if config.rerank:
         if reranker is None:
             raise ValueError("config.rerank needs a reranker")
-        pool = list(dict.fromkeys(i for items in lists for i, _ in items))
+        pool = list(dict.fromkeys(i for items in lists for i, _ in items))  # as candidate_pool
         scores = reranker.score(question, [corpus.chunks[i]["embed_text"] for i in pool])
         ranked = [i for _, i in sorted(zip(scores, pool), key=lambda t: -t[0])]
     elif len(lists) > 1:
