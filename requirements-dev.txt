@@ -1,3 +1,5 @@
 # Development tools.
 pytest
 ruff
+matplotlib
+openpyxl
