@@ -64,6 +64,18 @@ def load_grades(results: Path) -> dict[tuple[str, str, str], str]:
     for name, item in reused.items():  # "system|question id"
         system, qid = name.split("|")
         grades[("final", system, qid)] = item["grade"]
+    sheet = hand / "grading_text_cohere4.xlsx"  # the rerun with the Cohere reranker (optional)
+    if sheet.exists():
+        grades.update(read_sheet(sheet, hand / "grading_text_cohere4_key.json", "cohere4"))
+        reused = json.loads((hand / "grading_text_cohere4_reused.json").read_text(encoding="utf-8"))
+        for name, item in reused.items():
+            system, qid = name.split("|")
+            grades[("cohere4", system, qid)] = item["grade"]
+        for (variant, system, qid), grade in list(grades.items()):
+            if (
+                variant == "text" and system == "rag_base"
+            ):  # no reranker: not run again, same answers
+                grades[("cohere4", system, qid)] = grade
     return grades
 
 
@@ -126,6 +138,29 @@ def main(argv: list[str] | None = None) -> None:
     for s in SYSTEMS:
         d, w, ll, p = paired(grades, ids, ("final", s), ("text", s))
         print(f"{s:10s} {d:+.3f}  {w}/{ll}  p={p:.3f}")
+
+    if ("cohere4", "rag5", ids[0]) in grades:
+        accuracy_rows(
+            grades, ids, "cohere4", "Text chunks + Cohere reranker (rag_base is unchanged)"
+        )
+        print("\nCohere reranker minus local reranker (mean score difference, better, worse, p)")
+        for s in SYSTEMS[1:]:
+            d, w, ll, p = paired(grades, ids, ("cohere4", s), ("text", s))
+            print(f"{s:10s} {d:+.3f}  {w}/{ll}  p={p:.3f}")
+        for name in ["test", "agentic"]:
+            sub = [i for i in ids if split[i] == name]
+            for s in SYSTEMS[1:]:
+                d, w, ll, p = paired(grades, sub, ("cohere4", s), ("text", s))
+                print(f"  {name:8s} {s:10s} {d:+.3f}  {w}/{ll}  p={p:.3f}")
+        print("\nFully correct by question type: local -> Cohere reranker (rag5, rag8, agent_v3)")
+        for t in TYPES:
+            sub = [i for i in ids if questions[i]["type"] == t]
+            row = [
+                f"{sum(grades[('text', s, i)] == 'correct' for i in sub)}->"
+                f"{sum(grades[('cohere4', s, i)] == 'correct' for i in sub)}"
+                for s in SYSTEMS[1:]
+            ]
+            print(f"{t:14s} {len(sub):3d}  " + "  ".join(f"{c:7s}" for c in row))
 
     print("\nMean score by question type, all four systems pooled: text -> table-aware")
     by_type = defaultdict(lambda: ([], []))
