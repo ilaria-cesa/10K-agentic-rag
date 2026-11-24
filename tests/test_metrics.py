@@ -92,3 +92,12 @@ def test_grades_report_statistics():
     assert 0.40 < low < 0.41 and 0.59 < high < 0.60
     assert sign_test(0, 0) == 1.0 and sign_test(5, 5) == 1.0
     assert abs(sign_test(10, 1) - 0.0117) < 0.001
+
+
+def test_r_precision():
+    from src.eval.metrics import r_precision
+
+    assert r_precision(["a"], ["a", "b"]) == 1.0  # one right chunk, found first
+    assert r_precision(["a", "b"], ["a", "x", "b"]) == 0.5  # only a is among the first 2
+    assert r_precision(["a", "b"], ["b", "a"]) == 1.0  # order inside the first R does not matter
+    assert r_precision(["a"], ["x", "a"]) == 0.0

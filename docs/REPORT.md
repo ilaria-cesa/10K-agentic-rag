@@ -296,14 +296,21 @@ same pool. Any difference therefore comes from the reranker alone. As a check, t
 
 ![Retrieval with three rerankers](figures/fig_retrieval.png)
 
-| reranker | hit@5 | all@5 | all@8 | recall@5 | MRR |
-|---|---|---|---|---|---|
-| bge-reranker-v2-m3 (local) | 0.884 | 0.684 | 0.794 | 0.788 | 0.755 |
-| Cohere `rerank-v3.5` | 0.948 | 0.716 | 0.819 | 0.831 | 0.799 |
-| Cohere `rerank-v4.0-pro` | **0.968** | **0.826** | **0.897** | **0.905** | **0.843** |
+| reranker | hit@5 | all@5 | all@8 | recall@5 | MRR | R-precision |
+|---|---|---|---|---|---|---|
+| bge-reranker-v2-m3 (local) | 0.884 | 0.684 | 0.794 | 0.788 | 0.755 | 0.580 |
+| Cohere `rerank-v3.5` | 0.948 | 0.716 | 0.819 | 0.831 | 0.799 | 0.620 |
+| Cohere `rerank-v4.0-pro` | **0.968** | **0.826** | **0.897** | **0.905** | **0.843** | **0.695** |
+
+R-precision looks at the first R results, where R is the number of right chunks of the question, and counts the
+share that are right (a question with two right chunks scores 0.5 if only one is in the first two places). It is
+not shown in the figure.
 
 * `rerank-v4.0-pro` put all the right chunks in the top 5 for more questions than the local reranker on 24 questions
   and for fewer on 2 (sign test p < 0.001); in the top 8 on 17 questions against 1 (p < 0.001).
+* By R-precision `rerank-v4.0-pro` is better than the local reranker on 35 questions and worse on 11 (p < 0.001).
+  On the 66 questions with more than one right chunk it goes from 0.50 to 0.60; for the 89 questions with a single
+  right chunk R-precision is the same as hit@1.
 * `rerank-v3.5` is not clearly different from the local reranker (all@5: 15 better, 10 worse, p = 0.42).
 * The gain holds in all three question sets (all@5, local to `rerank-v4.0-pro`): development 0.70 to 0.85 (71
   questions), test 0.76 to 0.86 (58), agentic 0.46 to 0.69 (26).

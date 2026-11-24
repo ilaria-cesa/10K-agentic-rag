@@ -32,6 +32,12 @@ def retrieval_metrics(evidence: list[str], retrieved: list[str], ks: tuple[int, 
     return out
 
 
+def r_precision(evidence: list[str], retrieved: list[str]) -> float:
+    """Share of the first R retrieved chunks that are evidence, with R = number of evidence chunks."""
+    gold = set(evidence)
+    return len(gold & set(retrieved[: len(gold)])) / len(gold)
+
+
 _AMOUNT = re.compile(
     r"(\d[\d,]*\.?\d*)\s*(trillion|billion|million|thousand|%|percent)?", re.IGNORECASE
 )

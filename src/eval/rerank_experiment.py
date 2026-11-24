@@ -11,7 +11,7 @@ from __future__ import annotations
 
 import numpy as np
 
-from src.eval.metrics import retrieval_metrics
+from src.eval.metrics import r_precision, retrieval_metrics
 from src.retrieval.pipeline import Corpus, RetrievalConfig, candidate_pool
 
 KS = (1, 3, 5, 8, 10)
@@ -52,5 +52,6 @@ def evaluate(
                 base
                 | {"reranker": name, "ranked": ranked[:10]}
                 | retrieval_metrics(q["evidence_chunk_ids"], ranked, KS)
+                | {"r_precision": r_precision(q["evidence_chunk_ids"], ranked)}
             )
     return rows
