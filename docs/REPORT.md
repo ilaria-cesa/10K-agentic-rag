@@ -97,20 +97,8 @@ or hybrid candidates). Without a reranker, the hybrid lists are interleaved, so 
 The four development rows of the table above are reproduced by this run (for example dense with filter and reranker:
 all@5 0.718 and all@10 0.831 on the 71 development questions).
 
-![Search type with and without the filter](figures/fig_ablation.png)
 
-**Candidates only (no reranker)**
-
-| search | filter | hit@1 | hit@5 | all@5 | all@10 | MRR | R-precision |
-|---|---|---|---|---|---|---|---|
-| dense | no | 0.394 | 0.716 | 0.516 | 0.645 | 0.541 | 0.333 |
-| dense | yes | 0.458 | 0.742 | 0.542 | 0.690 | 0.591 | 0.401 |
-| BM25 | no | 0.284 | 0.600 | 0.439 | 0.542 | 0.410 | 0.282 |
-| BM25 | yes | 0.361 | 0.755 | 0.548 | 0.632 | 0.514 | 0.346 |
-| hybrid | no | 0.394 | 0.755 | 0.555 | 0.658 | 0.532 | 0.330 |
-| hybrid | yes | **0.458** | **0.813** | **0.613** | **0.723** | **0.600** | **0.403** |
-
-**The same candidates reordered by the reranker**
+**Candidates reordered by the reranker**
 
 | search | filter | hit@1 | hit@5 | all@5 | all@10 | MRR | R-precision |
 |---|---|---|---|---|---|---|---|
