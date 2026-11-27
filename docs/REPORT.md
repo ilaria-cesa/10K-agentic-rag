@@ -86,55 +86,70 @@ the filter each help, and together most. `all@5` stays well below `hit@5`, which
 8 passages to the model instead of 5: the evidence of a question often needs several chunks and the fifth place is
 too tight. Whether 8 is better is tested on hand-graded answers (section 6), not on this table.
 
-### Full ablation: search type, filter and reranker (notebook 07)
+### Full ablation: search type, with and without the filter (notebook 07)
 
-The table above is from the development questions only and has no keyword search. To measure every part on its own,
-all combinations of search type (dense, BM25 alone, hybrid), company/year filter and the local reranker were run on the
-155 answerable questions (text chunks, no language model). Every search starts from 30 candidates per list. Without a
-reranker, the hybrid lists are interleaved, so its first place is always the dense one. The setups of the four systems
-are `dense` (`rag_base`), `dense + filter + rerank` (`rag5`) and `hybrid + filter + rerank` (`rag8`, before it keeps 8
-instead of 5 passages). The four development rows of the table above are reproduced by this run (for example
-`dense + filter + rerank`: all@5 0.718 and all@10 0.831 on the 71 development questions).
+The table above is from the development questions only and has no keyword search. To compare the search types, every
+combination of search (dense, BM25 alone, hybrid) and company/year filter (off, on) was run on the 155 answerable
+questions (text chunks, no language model). Each search starts from 30 candidates per list. The first table shows the
+candidates as the search returns them; the second shows the same candidates after the cross-encoder reranker, which is
+what the final systems use (`rag_base` has no filter and no reranker; the later systems have both, with dense candidates
+or hybrid candidates). Without a reranker, the hybrid lists are interleaved, so its first place is always the dense one.
+The four development rows of the table above are reproduced by this run (for example dense with filter and reranker:
+all@5 0.718 and all@10 0.831 on the 71 development questions).
 
-![Retrieval ablation](figures/fig_ablation.png)
+![Search type with and without the filter](figures/fig_ablation.png)
 
-| search | filter | reranker | hit@1 | hit@5 | all@5 | all@10 | MRR | R-precision |
-|---|---|---|---|---|---|---|---|---|
-| dense | no | no | 0.394 | 0.716 | 0.516 | 0.645 | 0.541 | 0.333 |
-| dense | yes | no | 0.458 | 0.742 | 0.542 | 0.690 | 0.591 | 0.401 |
-| dense | no | yes | 0.600 | 0.832 | 0.645 | 0.742 | 0.709 | 0.532 |
-| dense | yes | yes | 0.619 | 0.852 | 0.684 | 0.774 | 0.734 | 0.565 |
-| BM25 | no | no | 0.284 | 0.600 | 0.439 | 0.542 | 0.410 | 0.282 |
-| BM25 | yes | no | 0.361 | 0.755 | 0.548 | 0.632 | 0.514 | 0.346 |
-| BM25 | no | yes | 0.542 | 0.794 | 0.587 | 0.639 | 0.645 | 0.490 |
-| BM25 | yes | yes | 0.606 | 0.858 | 0.632 | 0.735 | 0.722 | 0.559 |
-| hybrid | no | no | 0.394 | 0.755 | 0.555 | 0.658 | 0.532 | 0.330 |
-| hybrid | yes | no | 0.458 | 0.813 | 0.613 | 0.723 | 0.600 | 0.403 |
-| hybrid | no | yes | 0.613 | 0.852 | 0.645 | 0.774 | 0.725 | 0.542 |
-| hybrid | yes | yes | **0.632** | **0.884** | **0.684** | **0.813** | **0.751** | **0.580** |
+**Candidates only (no reranker)**
 
-Differences between combinations are paired, question by question (better / worse, sign test, no correction for the
-many comparisons):
+| search | filter | hit@1 | hit@5 | all@5 | all@10 | MRR | R-precision |
+|---|---|---|---|---|---|---|---|
+| dense | no | 0.394 | 0.716 | 0.516 | 0.645 | 0.541 | 0.333 |
+| dense | yes | 0.458 | 0.742 | 0.542 | 0.690 | 0.591 | 0.401 |
+| BM25 | no | 0.284 | 0.600 | 0.439 | 0.542 | 0.410 | 0.282 |
+| BM25 | yes | 0.361 | 0.755 | 0.548 | 0.632 | 0.514 | 0.346 |
+| hybrid | no | 0.394 | 0.755 | 0.555 | 0.658 | 0.532 | 0.330 |
+| hybrid | yes | **0.458** | **0.813** | **0.613** | **0.723** | **0.600** | **0.403** |
 
-* **The reranker is the largest single effect.** With dense search it raises hit@1 from 0.39 to 0.60 (better on 40
-  questions, worse on 8) and all@5 from 0.52 to 0.65 (25 against 5; p < 0.001 in both).
-* **The filter helps, less.** Alone, it improves hit@1 on 10 questions and worsens none (p = 0.002), and all@10 on 8
-  against 1 (p = 0.04); the change in all@5 (5 against 1) is not clear.
-* **BM25 alone is worse than dense search**: hit@1 0.28 against 0.39 (16 better, 33 worse, p = 0.02) and all@10 0.54
-  against 0.65 (7 against 23, p = 0.005). With filter and reranker the two are close in hit@1 (0.61 against 0.62,
-  p = 0.75), but BM25 stays lower in all@5 (0.63 against 0.68; 2 better, 10 worse, p = 0.04).
-* **Hybrid helps most when there is no reranker**: with the filter, all@5 is 0.61 against 0.54 for dense (14 against
-  3, p = 0.01) and hit@5 0.81 against 0.74. **After the reranker the gain is small**: all@5 is the same (0.684; 2
-  against 2) and all@10 is 0.81 against 0.77 (7 against 1, p = 0.07). The reranker recovers most of what the keyword
-  search adds. The direction of the all@10 gain is the same on the development, test and agentic questions
-  (0.85 against 0.83, 0.85 against 0.79, 0.65 against 0.58), but the agentic set has only 26 questions.
-* **Hybrid is clearly better than BM25 alone** with filter and reranker (all@5: 8 against 0, p = 0.008; all@10: 15
-  against 3, p = 0.008).
+**The same candidates reordered by the reranker**
 
-What this means for the systems: the hybrid search gives a modest, not clearly significant gain once a reranker is used.
-Going from 5 to 8 passages is a much larger change for the right chunks (all@5 0.68, all@8 0.79). `rag8` differs from
-`rag5` in both ways at once, so the answer-level difference between them (section 6) cannot be split between the two,
-and the extra passages are the more likely main cause; this was not tested at the answer level.
+| search | filter | hit@1 | hit@5 | all@5 | all@10 | MRR | R-precision |
+|---|---|---|---|---|---|---|---|
+| dense | no | 0.600 | 0.832 | 0.645 | 0.742 | 0.709 | 0.532 |
+| dense | yes | 0.619 | 0.852 | 0.684 | 0.774 | 0.734 | 0.565 |
+| BM25 | no | 0.542 | 0.794 | 0.587 | 0.639 | 0.645 | 0.490 |
+| BM25 | yes | 0.606 | 0.858 | 0.632 | 0.735 | 0.722 | 0.559 |
+| hybrid | no | 0.613 | 0.852 | 0.645 | 0.774 | 0.725 | 0.542 |
+| hybrid | yes | **0.632** | **0.884** | **0.684** | **0.813** | **0.751** | **0.580** |
+
+Differences are paired, question by question (better / worse, sign test, no correction for the many comparisons):
+
+* **The filter helps every search type.** Without a reranker: dense improves hit@1 on 10 questions and worsens none
+  (p = 0.002) and all@10 on 8 against 1 (p = 0.04), with all@5 not clear (5 against 1); BM25 improves all@5 on 18
+  against 1 (p < 0.001); hybrid improves all@5 on 11 against 2 (p = 0.02) and all@10 on 12 against 2 (p = 0.01). After
+  the reranker the gain is smaller (dense all@5: 7 against 1, p = 0.07; BM25 all@10: 18 against 3, p = 0.001).
+* **BM25 alone is the weakest.** With the filter, its hit@1 is 0.36 against 0.46 for dense (16 better, 31 worse,
+  p = 0.04); in hit@5 and all@5 the two are about equal (22 against 20 and 21 against 20). After the reranker the two
+  are close in hit@1 (0.61 against 0.62) but BM25 stays lower in all@5 (0.63 against 0.68; 2 better, 10 worse,
+  p = 0.04).
+* **Hybrid against dense, both with the filter.** Without a reranker, hybrid is clearly better in hit@5 (0.81 against
+  0.74; 13 against 2, p = 0.007) and all@5 (0.61 against 0.54; 14 against 3, p = 0.01); all@10 is not clear (0.72
+  against 0.69, 12 against 7, p = 0.36). After the reranker the gain is small: hit@5 0.88 against 0.85 (5 against 0,
+  p = 0.06), all@5 the same (0.684; 2 against 2) and all@10 0.81 against 0.77 (7 against 1, p = 0.07). The reranker
+  recovers most of what the keyword search adds.
+* **Hybrid against BM25 alone, both with the filter.** Hybrid is clearly better in all@10 (0.72 against 0.63 without a
+  reranker, p = 0.001; 0.81 against 0.74 with it, p = 0.008) and in all@5 after the reranker (8 against 0, p = 0.008).
+* **First place.** Without a reranker hybrid has the same hit@1 as dense by construction (dense results come first); with the
+  reranker the difference is 2 questions against 0.
+
+Taken together, filter + hybrid is the best or tied on every metric in both tables, and the filter is the most solid
+part of that choice. The advantage of hybrid over dense with the filter is clear for the raw candidates and small once the
+reranker is used. The direction of the all@10 gain is the same on the development, test and agentic questions (0.85
+against 0.83, 0.85 against 0.79, 0.65 against 0.58), but the agentic set has only 26 questions.
+
+Giving 8 passages instead of 5 changes the right chunks more than the keyword search does (all@5 0.68, all@8 0.79 for filter +
+hybrid + reranker). The later system with hybrid search and 8 passages differs from the one with dense search and 5
+passages in both ways at once, so their answer-level difference (section 6) cannot be split between the two. The extra
+passages are the more likely main cause; this was not tested at the answer level.
 
 ## 4. Generation and the agent
 

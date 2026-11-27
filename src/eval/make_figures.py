@@ -295,71 +295,72 @@ def figure_paired(grades, ids, out: Path) -> None:
     plt.close(fig)
 
 
-SEARCH_COLOUR = {"dense": "#56B4E9", "bm25": "#D55E00", "hybrid": "#CC79A7"}
-SETUPS = [
-    (False, False, "no filter,\nno reranker"),
-    (True, False, "filter"),
-    (False, True, "reranker"),
-    (True, True, "filter +\nreranker"),
-]
+SEARCH_COLOUR = {"dense": "#0072B2", "bm25": "#D55E00", "hybrid": "#CC79A7"}
+SEARCH_LABEL = {"dense": "dense", "bm25": "BM25", "hybrid": "hybrid"}
 
 
 def figure_ablation(df: pd.DataFrame, out: Path) -> None:
+    """Search type with and without the company/year filter; top row: candidates only, bottom row:
+    the same candidates reordered by the reranker."""
     metrics = [
         ("hit@1", "right chunk in first place"),
         ("all@5", "all right chunks in top 5"),
         ("all@10", "all right chunks in top 10"),
     ]
-    fig, axes = plt.subplots(1, 3, figsize=(12.5, 4.3), sharey=True)
-    width = 0.26
-    for ax, (metric, title) in zip(axes, metrics):
-        for j, source in enumerate(SEARCH_COLOUR):
-            for i, (use_filter, rerank, _) in enumerate(SETUPS):
-                part = df[
-                    (df["source"] == source)
-                    & (df["filter"] == use_filter)
-                    & (df["rerank"] == rerank)
-                ]
-                value = part[metric].mean()
-                x = i + (j - 1) * (width + 0.02)
-                ax.bar(
-                    x,
-                    value,
-                    width,
-                    color=SEARCH_COLOUR[source],
-                    zorder=3,
-                    label=source if (ax is axes[0] and i == 0) else None,
-                )
-                ax.text(
-                    x,
-                    value + 0.012,
-                    f"{value:.2f}".lstrip("0"),
-                    ha="center",
-                    fontsize=7.5,
-                    zorder=5,
-                )
-        ax.set_xticks(range(len(SETUPS)))
-        ax.set_xticklabels([s[2] for s in SETUPS], fontsize=8.5)
-        ax.set_title(title, fontsize=10, color=INK, loc="left")
-        ax.grid(axis="x", visible=False)
-    axes[0].set_ylim(0, 1.0)
-    axes[0].set_ylabel("share of questions")
-    handles = [Patch(color=colour, label=name) for name, colour in SEARCH_COLOUR.items()]
+    rows = [(False, "candidates only (no reranker)"), (True, "then reordered by the reranker")]
+    fig, axes = plt.subplots(2, 3, figsize=(12.5, 7.2), sharey=True)
+    width = 0.34
+    for r, (rerank, row_title) in enumerate(rows):
+        for c, (metric, title) in enumerate(metrics):
+            ax = axes[r][c]
+            for i, source in enumerate(SEARCH_COLOUR):
+                for k, use_filter in enumerate((False, True)):
+                    part = df[
+                        (df["source"] == source)
+                        & (df["filter"] == use_filter)
+                        & (df["rerank"] == rerank)
+                    ]
+                    value = part[metric].mean()
+                    colour = SEARCH_COLOUR[source]
+                    x = i + (k - 0.5) * (width + 0.02)
+                    ax.bar(
+                        x, value, width, color=tint(colour) if not use_filter else colour, zorder=3
+                    )
+                    ax.text(
+                        x,
+                        value + 0.012,
+                        f"{value:.2f}".lstrip("0"),
+                        ha="center",
+                        fontsize=8,
+                        zorder=5,
+                    )
+            ax.set_xticks(range(3))
+            ax.set_xticklabels([SEARCH_LABEL[s] for s in SEARCH_COLOUR], fontsize=9.5)
+            ax.grid(axis="x", visible=False)
+            ax.set_ylim(0, 1.0)
+            if r == 0:
+                ax.set_title(title, fontsize=10, color=INK, loc="left")
+            if c == 0:
+                ax.set_ylabel(row_title, fontsize=9.5)
+    handles = [
+        Patch(color="#C9CED6", label="without filter"),
+        Patch(color="#5E6670", label="with company/year filter"),
+    ]
     fig.legend(
         handles=handles,
         loc="upper right",
-        bbox_to_anchor=(0.995, 1.06),
+        bbox_to_anchor=(0.995, 1.04),
         frameon=False,
-        ncol=3,
+        ncol=2,
         fontsize=9,
         handlelength=1.2,
     )
-    fig.subplots_adjust(left=0.065, right=0.995, wspace=0.08)
+    fig.subplots_adjust(left=0.07, right=0.995, wspace=0.08, hspace=0.22)
     heading(
         fig,
-        "Retrieval ablation: search type, filter and reranker",
-        f"{df['id'].nunique()} answerable questions, local reranker. Without a reranker, "
-        "hybrid interleaves the dense and keyword lists (so its first place equals dense)",
+        "Retrieval: search type, with and without the company/year filter",
+        f"{df['id'].nunique()} answerable questions. Light bar = no filter, full colour = filter. "
+        "Without a reranker, hybrid interleaves the two lists (first place = dense)",
     )
     fig.savefig(out / "fig_ablation.png")
     plt.close(fig)
