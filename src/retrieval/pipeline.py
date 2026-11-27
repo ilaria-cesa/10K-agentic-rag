@@ -38,6 +38,11 @@ class RetrievalConfig:
     top_k: int = 10
     hybrid: bool = False
     bm25_pool: int = 20
+    dense: bool = True  # False with hybrid=True: keyword search only (for the ablation)
+
+    def __post_init__(self):
+        if not self.dense and not self.hybrid:
+            raise ValueError("a config needs dense search, keyword search (hybrid) or both")
 
 
 class Corpus:
@@ -88,16 +93,20 @@ def _candidates(
     keys = [k for k in (scope.report_dates if scope else []) if k in corpus.by_filing]
     if not keys:
         scope = None
+    lists: list[list[tuple[int, float]]] = []
     if scope is None:
         scope_idx = corpus.everything
-        lists = [_top(corpus, query, scope_idx, config.pool)]
+        if config.dense:
+            lists = [_top(corpus, query, scope_idx, config.pool)]
     elif config.per_filing and len(keys) <= MAX_PER_FILING_FILINGS:
         scope_idx = np.concatenate([corpus.by_filing[k] for k in keys])
         per = math.ceil(config.pool / len(keys))
-        lists = [_top(corpus, query, corpus.by_filing[k], per) for k in keys]
+        if config.dense:
+            lists = [_top(corpus, query, corpus.by_filing[k], per) for k in keys]
     else:
         scope_idx = np.concatenate([corpus.by_filing[k] for k in keys])
-        lists = [_top(corpus, query, scope_idx, config.pool)]
+        if config.dense:
+            lists = [_top(corpus, query, scope_idx, config.pool)]
     if config.hybrid:
         lists.append(corpus.bm25.top(question, scope_idx, config.bm25_pool))
     return lists, scope
@@ -145,6 +154,8 @@ def pool_scores(
     The scores are the raw numbers each stage produced; a missing score means the stage did not
     list that chunk. Used to compare ways of combining the stages without running them again.
     """
+    if not config.dense:
+        raise ValueError("pool_scores needs dense search")
     lists, _ = _candidates(corpus, question, query_vector, config)
     dense = {i: (rank, score) for rank, (i, score) in enumerate(lists[0])}
     keyword = (
