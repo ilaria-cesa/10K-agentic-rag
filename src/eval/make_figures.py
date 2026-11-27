@@ -295,6 +295,76 @@ def figure_paired(grades, ids, out: Path) -> None:
     plt.close(fig)
 
 
+SEARCH_COLOUR = {"dense": "#56B4E9", "bm25": "#D55E00", "hybrid": "#CC79A7"}
+SETUPS = [
+    (False, False, "no filter,\nno reranker"),
+    (True, False, "filter"),
+    (False, True, "reranker"),
+    (True, True, "filter +\nreranker"),
+]
+
+
+def figure_ablation(df: pd.DataFrame, out: Path) -> None:
+    metrics = [
+        ("hit@1", "right chunk in first place"),
+        ("all@5", "all right chunks in top 5"),
+        ("all@10", "all right chunks in top 10"),
+    ]
+    fig, axes = plt.subplots(1, 3, figsize=(12.5, 4.3), sharey=True)
+    width = 0.26
+    for ax, (metric, title) in zip(axes, metrics):
+        for j, source in enumerate(SEARCH_COLOUR):
+            for i, (use_filter, rerank, _) in enumerate(SETUPS):
+                part = df[
+                    (df["source"] == source)
+                    & (df["filter"] == use_filter)
+                    & (df["rerank"] == rerank)
+                ]
+                value = part[metric].mean()
+                x = i + (j - 1) * (width + 0.02)
+                ax.bar(
+                    x,
+                    value,
+                    width,
+                    color=SEARCH_COLOUR[source],
+                    zorder=3,
+                    label=source if (ax is axes[0] and i == 0) else None,
+                )
+                ax.text(
+                    x,
+                    value + 0.012,
+                    f"{value:.2f}".lstrip("0"),
+                    ha="center",
+                    fontsize=7.5,
+                    zorder=5,
+                )
+        ax.set_xticks(range(len(SETUPS)))
+        ax.set_xticklabels([s[2] for s in SETUPS], fontsize=8.5)
+        ax.set_title(title, fontsize=10, color=INK, loc="left")
+        ax.grid(axis="x", visible=False)
+    axes[0].set_ylim(0, 1.0)
+    axes[0].set_ylabel("share of questions")
+    handles = [Patch(color=colour, label=name) for name, colour in SEARCH_COLOUR.items()]
+    fig.legend(
+        handles=handles,
+        loc="upper right",
+        bbox_to_anchor=(0.995, 1.06),
+        frameon=False,
+        ncol=3,
+        fontsize=9,
+        handlelength=1.2,
+    )
+    fig.subplots_adjust(left=0.065, right=0.995, wspace=0.08)
+    heading(
+        fig,
+        "Retrieval ablation: search type, filter and reranker",
+        f"{df['id'].nunique()} answerable questions, local reranker. Without a reranker, "
+        "hybrid interleaves the dense and keyword lists (so its first place equals dense)",
+    )
+    fig.savefig(out / "fig_ablation.png")
+    plt.close(fig)
+
+
 def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--results", type=Path, default=Path("results"))
@@ -313,6 +383,9 @@ def main(argv: list[str] | None = None) -> None:
     figure_retrieval(df, args.out)
     figure_by_type(grades, ids, questions, args.out)
     figure_paired(grades, ids, args.out)
+    ablation = args.results / "retrieval_ablation.jsonl"
+    if ablation.exists():
+        figure_ablation(pd.read_json(ablation, lines=True), args.out)
     print("figures written to", args.out)
 
 

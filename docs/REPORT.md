@@ -16,7 +16,9 @@ only reasoned (not tested against alternatives) are labelled as such too.
   graded by hand, blind, against the reference answer.
 * **Main result.** Fully correct answers on the 94 graded questions: 71.3% (`rag_base`), 74.5% (`rag5`), 80.9%
   (`rag8`), 83.0% (`agent_v3`). Giving 8 passages with hybrid search instead of 5 helped clearly (`rag8` better than
-  `rag5` on 10 questions, worse on 1). The agent was better than `rag8` on the questions that involve several
+  `rag5` on 10 questions, worse on 1); the two changes were made together, and in retrieval the hybrid part adds
+  little once a reranker is used (section 3), so the extra passages probably explain most of the gain (not tested
+  directly). The agent was better than `rag8` on the questions that involve several
   companies (83.3% against 66.7% on 30 questions) at about 2.5 times the time, but with so few questions the
   difference is not statistically clear.
 * **A stronger reranker helps.** Replacing the local reranker with Cohere `rerank-v4.0-pro` raised the share of
@@ -69,8 +71,8 @@ and section in a header, used only to compute the embedding). *The chunk size wa
   together, which is slower but more precise, so it is used only on a candidate pool.
 
 **Ablation on the development questions (71 questions with an answer, no language model).** This analysis was run
-during development with the same chunks and is not re-run in this repository; the numbers are kept in the first
-version's output.
+during development with the same chunks. The full ablation further below (all 155 answerable questions, including
+keyword search) reproduces these four rows on the development questions.
 
 | setting | hit@5 | all@5 | all@10 | MRR |
 |---|---|---|---|---|
@@ -83,6 +85,56 @@ version's output.
 the filter each help, and together most. `all@5` stays well below `hit@5`, which is why `rag8` and the agent give
 8 passages to the model instead of 5: the evidence of a question often needs several chunks and the fifth place is
 too tight. Whether 8 is better is tested on hand-graded answers (section 6), not on this table.
+
+### Full ablation: search type, filter and reranker (notebook 07)
+
+The table above is from the development questions only and has no keyword search. To measure every part on its own,
+all combinations of search type (dense, BM25 alone, hybrid), company/year filter and the local reranker were run on the
+155 answerable questions (text chunks, no language model). Every search starts from 30 candidates per list. Without a
+reranker, the hybrid lists are interleaved, so its first place is always the dense one. The setups of the four systems
+are `dense` (`rag_base`), `dense + filter + rerank` (`rag5`) and `hybrid + filter + rerank` (`rag8`, before it keeps 8
+instead of 5 passages). The four development rows of the table above are reproduced by this run (for example
+`dense + filter + rerank`: all@5 0.718 and all@10 0.831 on the 71 development questions).
+
+![Retrieval ablation](figures/fig_ablation.png)
+
+| search | filter | reranker | hit@1 | hit@5 | all@5 | all@10 | MRR | R-precision |
+|---|---|---|---|---|---|---|---|---|
+| dense | no | no | 0.394 | 0.716 | 0.516 | 0.645 | 0.541 | 0.333 |
+| dense | yes | no | 0.458 | 0.742 | 0.542 | 0.690 | 0.591 | 0.401 |
+| dense | no | yes | 0.600 | 0.832 | 0.645 | 0.742 | 0.709 | 0.532 |
+| dense | yes | yes | 0.619 | 0.852 | 0.684 | 0.774 | 0.734 | 0.565 |
+| BM25 | no | no | 0.284 | 0.600 | 0.439 | 0.542 | 0.410 | 0.282 |
+| BM25 | yes | no | 0.361 | 0.755 | 0.548 | 0.632 | 0.514 | 0.346 |
+| BM25 | no | yes | 0.542 | 0.794 | 0.587 | 0.639 | 0.645 | 0.490 |
+| BM25 | yes | yes | 0.606 | 0.858 | 0.632 | 0.735 | 0.722 | 0.559 |
+| hybrid | no | no | 0.394 | 0.755 | 0.555 | 0.658 | 0.532 | 0.330 |
+| hybrid | yes | no | 0.458 | 0.813 | 0.613 | 0.723 | 0.600 | 0.403 |
+| hybrid | no | yes | 0.613 | 0.852 | 0.645 | 0.774 | 0.725 | 0.542 |
+| hybrid | yes | yes | **0.632** | **0.884** | **0.684** | **0.813** | **0.751** | **0.580** |
+
+Differences between combinations are paired, question by question (better / worse, sign test, no correction for the
+many comparisons):
+
+* **The reranker is the largest single effect.** With dense search it raises hit@1 from 0.39 to 0.60 (better on 40
+  questions, worse on 8) and all@5 from 0.52 to 0.65 (25 against 5; p < 0.001 in both).
+* **The filter helps, less.** Alone, it improves hit@1 on 10 questions and worsens none (p = 0.002), and all@10 on 8
+  against 1 (p = 0.04); the change in all@5 (5 against 1) is not clear.
+* **BM25 alone is worse than dense search**: hit@1 0.28 against 0.39 (16 better, 33 worse, p = 0.02) and all@10 0.54
+  against 0.65 (7 against 23, p = 0.005). With filter and reranker the two are close in hit@1 (0.61 against 0.62,
+  p = 0.75), but BM25 stays lower in all@5 (0.63 against 0.68; 2 better, 10 worse, p = 0.04).
+* **Hybrid helps most when there is no reranker**: with the filter, all@5 is 0.61 against 0.54 for dense (14 against
+  3, p = 0.01) and hit@5 0.81 against 0.74. **After the reranker the gain is small**: all@5 is the same (0.684; 2
+  against 2) and all@10 is 0.81 against 0.77 (7 against 1, p = 0.07). The reranker recovers most of what the keyword
+  search adds. The direction of the all@10 gain is the same on the development, test and agentic questions
+  (0.85 against 0.83, 0.85 against 0.79, 0.65 against 0.58), but the agentic set has only 26 questions.
+* **Hybrid is clearly better than BM25 alone** with filter and reranker (all@5: 8 against 0, p = 0.008; all@10: 15
+  against 3, p = 0.008).
+
+What this means for the systems: the hybrid search gives a modest, not clearly significant gain once a reranker is used.
+Going from 5 to 8 passages is a much larger change for the right chunks (all@5 0.68, all@8 0.79). `rag8` differs from
+`rag5` in both ways at once, so the answer-level difference between them (section 6) cannot be split between the two,
+and the extra passages are the more likely main cause; this was not tested at the answer level.
 
 ## 4. Generation and the agent
 
@@ -206,8 +258,11 @@ the evaluation with a stronger, hosted reranker and compares the two.
 
 **Reading the results**
 
-1. **More passages and hybrid search help.** `rag8` is clearly better than `rag5` and `rag_base`. The filter and
-   reranker alone (`rag5` against `rag_base`) are not clearly better on these questions (p = 0.36), even though they
+1. **More passages, with hybrid search, help.** `rag8` is clearly better than `rag5` and `rag_base`. It differs from
+   `rag5` in two ways at once (8 passages instead of 5, and a keyword search added to the candidates), so these
+   results do not say which one matters. The retrieval ablation of section 3 points to the extra passages: hybrid
+   adds little after the reranker, while the top 8 contain all the right chunks for 11 points more questions than
+   the top 5. The filter and reranker alone (`rag5` against `rag_base`) are not clearly better on these questions (p = 0.36), even though they
    are much better on the retrieval metrics of section 3. A better ranking does not always change the answer.
 2. **The agent is not clearly better than `rag8` overall** (+0.016, p = 0.55). Its advantage is concentrated in
    comparison questions (19 correct against 17) and in the agentic set (83.3% against 66.7%). With 30 questions that
@@ -446,8 +501,8 @@ extra searches were needed.
   evidence chunks by text matching; the number-based measure was added because of this.
 * **Tables.** The default pipeline reads tables as flattened text. The structured version was not better in these
   tests; improvements to table handling (for example XBRL data or layout-aware parsers) were not tried.
-* **Retrieval ablation not re-run.** The table in section 3 comes from the first version of the project, with the same
-  text chunks.
+* **Hybrid search and the number of passages are not separated at the answer level.** `rag8` differs from `rag5` in
+  both; only retrieval-only comparisons (section 3) separate them.
 * **Automatic indicators.** `numbers_match` and citation checks are indicators of surface properties, not of
   correctness.
 
@@ -463,12 +518,14 @@ stored in a private Hugging Face dataset and are not part of this repository):
 5. `04_run_all_systems.ipynb`: the four systems on all 175 questions, once per variant (`VARIANT = "text"` or
    `"tables"`); answers are saved to the dataset every 20 questions, so a stopped run can resume from another
    account.
-6. `05_rerank_experiment.ipynb`: the retrieval-only comparison of rerankers of section 8.1 (needs a Cohere key in
+6. `07_retrieval_ablation.ipynb`: search type x filter x reranker, retrieval only (section 3; local reranker, no
+   API key needed).
+7. `05_rerank_experiment.ipynb`: the retrieval-only comparison of rerankers of section 8.1 (needs a Cohere key in
    the Colab secret `COHERE_API_KEY`; about 310 calls on a trial key; every ranking is cached).
-7. `06_run_with_cohere.ipynb`: `rag5`, `rag8` and `agent_v3` again with the Cohere reranker (section 8.2). It
+8. `06_run_with_cohere.ipynb`: `rag5`, `rag8` and `agent_v3` again with the Cohere reranker (section 8.2). It
    takes about 1,100 reranker calls, so it can be stopped and continued: answers and the ranking cache are saved to the
    dataset (`runs/text_cohere4/`), and finished questions and rankings are not computed or paid again.
-8. Hand grading on the shuffled sheets, then `python -m src.eval.grades_report` for the numbers in this report and
+9. Hand grading on the shuffled sheets, then `python -m src.eval.grades_report` for the numbers in this report and
    `python -m src.eval.make_figures` for the figures in `docs/figures/` (needs `matplotlib` and `openpyxl`, in
    `requirements-dev.txt`).
 
